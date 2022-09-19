@@ -17,6 +17,8 @@ mongoose.connect(DB).then((con) => {
   console.log("DB connection successful");
 });
 
+
+app.use(express.json({ limit: '10kb' }));
 app.use(cors());
 app.use("/api/v1/products", productRouter);
 const port = 8000 || process.env.PORT;

@@ -6,10 +6,25 @@ const productSchema = new mongoose.Schema({
     required: [false, "a match must have a name"],
     trim: true,
   },
-  image: {
-    type: String,
-  },
+  description: String,
+  images:[],
   price:Number,
+  discountPercentage: Number,
+  stock:{type: Number, default: 10},
+  brand: {type: String, default: 'mi'},
+  category: String,
+  thumbnail: String,
+  inCart: {
+    type: Boolean,
+    default: false
+  },
+  inWish: {
+    type: Boolean,
+    default: false
+  },
+  rating:{type: Number, 
+    default: 4.5
+  },
   description: String
 });
 

@@ -43,6 +43,7 @@ exports.getProduct = async (req, res, next) => {
 exports.createProduct = async (req, res, next) => {
   try {
     const newProduct = await Product.create(req.body);
+    console.log(newProduct)
 
     if (!newProduct) {
       return res.status(404).json({
@@ -68,6 +69,7 @@ exports.updateProduct = async (req, res, next) => {
     const product = await Product.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
     });
+    console.log(req.body)
 
     if (!product) {
       return res.status(404).json({
@@ -77,9 +79,7 @@ exports.updateProduct = async (req, res, next) => {
     }
     res.status(200).json({
       status: "success",
-      data: {
-        product,
-      },
+      message: " product has been updated"
     });
   } catch (err) {
     console.log(err);
@@ -90,6 +90,7 @@ exports.updateProduct = async (req, res, next) => {
 exports.deleteProduct = async (req, res, next) => {
   try {
     const product = await Product.findByIdAndDelete(req.params.id);
+    console.log('product has been deleted')
     if (!product) {
       return res.status(404).json({
         status: 'fail',
