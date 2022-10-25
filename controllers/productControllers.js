@@ -3,7 +3,7 @@ const Product = require("./../models/productModel");
 
 exports.getAllProducts = async (req, res, next) => {
   try {
-    console.log('heroku')
+    // console.log('heroku')
     // console.log(req.query);
     const products = await Product.find();
 
@@ -20,6 +20,7 @@ exports.getAllProducts = async (req, res, next) => {
 exports.getProduct = async (req, res, next) => {
   try {
     const product = await Product.findById(req.params.id);
+    console.log(product)
 
     if (!product) {
       return next(res.status(404).json({
