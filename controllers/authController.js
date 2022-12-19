@@ -29,7 +29,7 @@ const createSendToken = (user, statusCode, res) => {
   user.password = undefined;
 
   res.status(statusCode).json({
-    status: 'sucess',
+    status: 'success',
     token,
     data: {
       user,
@@ -38,6 +38,7 @@ const createSendToken = (user, statusCode, res) => {
 };
 
 exports.signup = catchAsync(async (req, res, next) => {
+  try {
     console.log(req.body)
   const newUser = await User.create({
     name: req.body.username,
@@ -46,6 +47,28 @@ exports.signup = catchAsync(async (req, res, next) => {
     confirmPassword: req.body.confirmPassword,
   });
   createSendToken(newUser, 201, res);
+    
+  } catch (error) {
+    console.log(error.name)
+
+    if(error?.code === 11000){
+      res.status(400).json({
+        message: "Duplicate Data user already exists",
+        errorMsg: error
+      })
+    } else if(error.name === "ValidationError"){
+      res.status(400).json({
+        message: error.message,
+        errorMsg: error
+      })
+    }else{
+      res.status(500).json({
+        message: "Something Went Wrong",
+        errorMsg: error
+      })
+    }
+  }
+  
 });
 
 exports.login = catchAsync(async (req, res, next) => {

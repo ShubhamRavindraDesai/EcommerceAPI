@@ -41,7 +41,7 @@ mongoose.connect(DB,{
 //   console.log('Connected to the MySQL server.');
 // });
 
-app.use(express.json({ limit: '10kb' }));
+app.use(express.json());
 app.use(cors());
 app.use("/api/v1/products", productRouter);
 app.use('/api/v1/users', userRouter);
